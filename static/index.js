@@ -23,17 +23,18 @@ const fetchMovieData = async () => {
             let vote = a['vote_average'];
             let image = a['poster_path'];
 
+            // class="movie-card"
             const temp = document.createElement('div');
-            temp.innerHTML = ` <div class="movie-card">
-                            <div class="img">
+            temp.className = 'movie-card';
+
+            temp.innerHTML = `<div class="img">
                                 <img src="https://image.tmdb.org/t/p/w500${image}">
                             </div>
                             <div class="card-text">
                                 <h3>${title}</h3>
                                 <p>${overview}</p>
                                 <h2>${vote}</h2>
-                            </div>
-                        </div>`;
+                            </div>`;
             document.querySelector('.card-list').append(temp);
         });
     };
@@ -77,23 +78,23 @@ fetchMovieData();
 const inputfun = document.querySelector("#search-button");
 inputfun.addEventListener("click", function (event) {
 
-    
-    const searchInput = document.querySelector("#search-input").value.toLowerCase();
+
+    const searchInput = document.getElementById("search-input").value.toLowerCase();
     const movieCards = document.querySelectorAll(".movie-card");
 
 
-    console.log(movieCards);
+    // console.log(movieCards);
     // console.log(searchInput);
 
-    // movieCards.forEach((card) => {
-    //     const title = card.querySelector("h3").textContent.toLowerCase();
+    movieCards.forEach((card) => {
+        const title = card.querySelector("h3").textContent.toLowerCase();
 
-    //     console.log(title);
+        console.log(title);
 
-    //     if (title.indexOf(searchInput) !== -1) {
-    //         card.style.display = "block";
-    //     } else {
-    //         card.style.display = "none";
-    //     }
-    // })
+        if (title.indexOf(searchInput) !== -1) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    })
 });
