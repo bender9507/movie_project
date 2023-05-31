@@ -1,5 +1,3 @@
-
-
 const fetchMovieData = async () => {
     const options = {
         method: 'GET',
@@ -22,6 +20,7 @@ const fetchMovieData = async () => {
             let overview = a['overview'];
             let vote = a['vote_average'];
             let image = a['poster_path'];
+            let id = a['id']
 
             // class="movie-card"
             const temp = document.createElement('div');
@@ -33,58 +32,36 @@ const fetchMovieData = async () => {
                             <div class="card-text">
                                 <h3>${title}</h3>
                                 <p>${overview}</p>
+                                </br>
                                 <h2>${vote}</h2>
                             </div>`;
             document.querySelector('.card-list').append(temp);
+            
+            temp.addEventListener("click", function (event) {
+                // ``변수나 특정한 값을 문자열 안에 
+                alert(`영화 id: ${id}`);
+            });
         });
     };
     cardlist(rows);
 
-}
+    //querySelector로 받은 element배열에 addEventListener 기능 바로 붙일 수 없음, 각각의 element에 붙여줘야 함
+    // document.querySelector(".movie-card").addEventListener("click", function (event) {
+    //     alert("안녕");
+    // });
+
+};
+
 
 fetchMovieData();
 
-// const handleSearch = (event) => {
-//     //새고고침 현상을 막아주나?
-//     event.preventDefault();
 
-//     const searchInput = document.querySelector("#search-input");
-//     //검색창에 입력된 값을 모두 소문자로 바꿔라?
-//     const searchKeyword = searchInput.value.toLowerCase();
-
-//     const movieCards = document.querySelectorAll(".movie-card");
-//     
-//영화 카드들 하나하나 돌면서 카드의 제목을 소문자로 
-
-//     movieCards.forEach((card) => {
-//         const title = card.querySelector("h3").textContent.toLowerCase();
-
-//         //indexOf() 함수 : 문자열에서 특정 문자를 찾아 그 문자가 첫번째로 나타나는 위치 index로 리턴
-//         //찾는 문자열이 없으면 -1을 리턴, 문자열을 찾을 때 대소문자를 구분
-//         //영화 제목에서 searchKeyword에 입력한 값을 찾았는데 있으면 "block" (검색 결과 나옴)
-//         //입력한 값이 없으면 "none" (검색 결과 없음)
-//         if (title.indexOf(searchKeyword) !== -1) {
-//             card.style.display = "block";
-
-//         } else {
-//             card.style.display = "none";
-//             // alert(" 검색결과가 없습니다.");
-//             // window.location.reload()
-//         }
-
-//     });
-
-// };
 const inputfun = document.querySelector("#search-button");
 inputfun.addEventListener("click", function (event) {
 
 
     const searchInput = document.getElementById("search-input").value.toLowerCase();
     const movieCards = document.querySelectorAll(".movie-card");
-
-
-    // console.log(movieCards);
-    // console.log(searchInput);
 
     movieCards.forEach((card) => {
         const title = card.querySelector("h3").textContent.toLowerCase();
