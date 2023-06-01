@@ -1,3 +1,4 @@
+//Fetch로 데이터 가져와서 입력
 const fetchMovieData = async () => {
     const options = {
         method: 'GET',
@@ -13,7 +14,7 @@ const fetchMovieData = async () => {
 
     const data = await response.json();
     let rows = data['results'];
-    // console.log(rows);
+    
     let cardlist = function (rows) {
         rows.forEach((a) => {
             let title = a['title'];
@@ -22,7 +23,6 @@ const fetchMovieData = async () => {
             let image = a['poster_path'];
             let id = a['id']
 
-            // class="movie-card"
             const temp = document.createElement('div');
             temp.className = 'movie-card';
 
@@ -36,29 +36,26 @@ const fetchMovieData = async () => {
                                 <h2>${vote}</h2>
                             </div>`;
             document.querySelector('.card-list').append(temp);
-            
+
+            //클릭시 alert창으로 id값 보여주기
             temp.addEventListener("click", function (event) {
-                // ``변수나 특정한 값을 문자열 안에 
                 alert(`영화 id: ${id}`);
             });
         });
     };
     cardlist(rows);
 
-    //querySelector로 받은 element배열에 addEventListener 기능 바로 붙일 수 없음, 각각의 element에 붙여줘야 함
-    // document.querySelector(".movie-card").addEventListener("click", function (event) {
-    //     alert("안녕");
-    // });
-
 };
 
 
 fetchMovieData();
 
+//검색 기능
+const inputfun = document.querySelector(".search");
+inputfun.addEventListener("submit", function (event) {
 
-const inputfun = document.querySelector("#search-button");
-inputfun.addEventListener("click", function (event) {
-
+    
+    event.preventDefault()
 
     const searchInput = document.getElementById("search-input").value.toLowerCase();
     const movieCards = document.querySelectorAll(".movie-card");
